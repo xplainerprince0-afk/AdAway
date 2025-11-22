@@ -4,6 +4,7 @@ import android.app.Application;
 
 import org.adaway.helper.NotificationHelper;
 import org.adaway.helper.PreferenceHelper;
+import org.adaway.feature.debloat.DebloatManager;
 import org.adaway.model.adblocking.AdBlockMethod;
 import org.adaway.model.adblocking.AdBlockModel;
 import org.adaway.model.source.SourceModel;
@@ -28,6 +29,10 @@ public class AdAwayApplication extends Application {
      * The common update model for the whole application.
      */
     private UpdateModel updateModel;
+    /**
+     * The debloat manager for the whole application.
+     */
+    private DebloatManager debloatManager;
 
     @Override
     public void onCreate() {
@@ -40,6 +45,7 @@ public class AdAwayApplication extends Application {
         // Create models
         this.sourceModel = new SourceModel(this);
         this.updateModel = new UpdateModel(this);
+        this.debloatManager = new DebloatManager(this);
     }
 
     /**
@@ -72,5 +78,14 @@ public class AdAwayApplication extends Application {
      */
     public UpdateModel getUpdateModel() {
         return this.updateModel;
+    }
+
+    /**
+     * Get the debloat manager.
+     *
+     * @return The debloat manager for the whole application.
+     */
+    public DebloatManager getDebloatManager() {
+        return this.debloatManager;
     }
 }
