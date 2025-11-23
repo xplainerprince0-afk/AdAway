@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -35,6 +36,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import org.adaway.AdAwayApplication;
 import org.adaway.R;
 import org.adaway.databinding.HomeActivityBinding;
 import org.adaway.helper.NotificationHelper;
@@ -229,6 +231,17 @@ public class HomeActivity extends AppCompatActivity {
         this.binding.content.logCardView.setOnClickListener(this::startDnsLogActivity);
         this.binding.content.helpCardView.setOnClickListener(this::startHelpActivity);
         this.binding.content.supportCardView.setOnClickListener(this::showSupportActivity);
+        this.binding.content.debloatButton.setOnClickListener(this::runDebloat);
+    }
+
+    private void runDebloat(View view) {
+        String packageName = "com.google.android.youtube";
+        boolean result = ((AdAwayApplication) getApplication()).getDebloatManager().disablePackage(packageName);
+        if (result) {
+            Toast.makeText(this, "Debloated: " + packageName, Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to debloat: " + packageName, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void setUpBottomDrawer() {
